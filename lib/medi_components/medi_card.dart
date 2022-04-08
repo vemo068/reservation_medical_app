@@ -6,7 +6,7 @@ import 'package:reservation_medical_app/models/doctor.dart';
 import '../Styles/medi_colors.dart';
 
 class MediCard extends StatelessWidget {
-  final Doctor doctor;
+  final Doctor? doctor;
   const MediCard({Key? key, required this.doctor}) : super(key: key);
 
   @override
@@ -35,7 +35,7 @@ class MediCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
-                      image: AssetImage(doctor.img),
+                      image: AssetImage(doctor!.img),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -47,12 +47,12 @@ class MediCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        MediText.headingThree(doctor.name),
-                        MediText.body(doctor.speciality.name),
+                        MediText.headingThree(doctor!.name),
+                        MediText.body(doctor!.speciality.name),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(doctor.workTime,
+                            Text(doctor!.workTime,
                                 style: TextStyle(
                                     color: kcsecondary,
                                     fontSize: 16,

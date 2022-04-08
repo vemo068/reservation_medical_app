@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:reservation_medical_app/Controllers/speciality_controller.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
+import 'package:reservation_medical_app/medi_components/medi_card.dart';
 
 import 'models/speciality.dart';
 
@@ -13,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
@@ -21,20 +24,90 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+  final SpecialityController specialityController =
+      Get.put(SpecialityController());
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: kcmain,
+            title: const Text("Home"),
+          ),
           drawer: const NewD(),
           backgroundColor: kcbackground,
-          body: Column(
-            children: const [
-              CustomAppBar(),
-              Center(child: Text("Welcome", style: mediHeading3Style)),
-              Center(child: Text("Choose a Doctor", style: mediHeading3Style)),
-            ],
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Center(child: Text("Welcome", style: mediHeading3Style)),
+                const Center(
+                    child: Text("Choose a Doctor", style: mediHeading3Style)),
+                const SearchBar(),
+                GetBuilder<SpecialityController>(
+                    init: specialityController,
+                    builder: (_) {
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: 60,
+                            width: double.infinity,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: sps.length,
+                              itemBuilder: ((context, index) {
+                                return SpecialityCard(
+                                  speciality: sps[index],
+                                  tapped: (catId) {
+                                    specialityController.currentSpeciality =
+                                        sps[index];
+                                    specialityController.update();
+                                  },
+                                  isSelected:
+                                      specialityController.currentSpeciality ==
+                                              sps[index]
+                                          ? true
+                                          : false,
+                                );
+                              }),
+                            ),
+                          ),
+                          Text(
+                            specialityController.currentSpeciality.name +
+                                " doctors",
+                            style: mediSubheadingStyle,
+                          ),
+                          
+                        ],
+                      );
+                    }),
+                    GetBuilder(
+                      init: specialityController,
+                      builder: (_) {
+                        return Expanded(
+                          child: SizedBox(
+                                  
+                                  width: double.infinity,
+                                  child: ListView.builder(
+                                    itemCount:
+                                        specialityController.getDoctors().length,
+                                    itemBuilder: (context, index) {
+                                      return MediCard(
+                                        doctor:
+                                            specialityController.getDoctors()[index],
+                                      );
+                                    },
+                                  ),
+                                ),
+                        );
+                      }
+                    )
+              ],
+            ),
           )),
     );
   }
@@ -48,9 +121,10 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       height: 45,
-      width: 180,
+      width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
         color: kcwhite,
         borderRadius: BorderRadius.circular(8),
@@ -58,7 +132,7 @@ class SearchBar extends StatelessWidget {
       child: const TextField(
         decoration: InputDecoration(
             hintText: 'enter doctor name',
-            prefixIcon: Icon(
+            suffixIcon: Icon(
               Icons.search,
             ),
             border: InputBorder.none),
@@ -80,82 +154,41 @@ class NewD extends StatelessWidget {
 
 class SpecialityCard extends StatelessWidget {
   final Specility speciality;
-  const SpecialityCard({
+  final Function(String) tapped;
+  final bool isSelected;
+  SpecialityCard({
     Key? key,
     required this.speciality,
+    required this.tapped,
+    required this.isSelected,
   }) : super(key: key);
-
+  final SpecialityController specialityController =
+      Get.find<SpecialityController>();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 10),
-      height: 60,
-      width: 60,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: kcmain.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Image.asset(
-        speciality.img,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-}
-
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          alignment: Alignment.topCenter,
-          child: const Center(
-            child: Text(
-              "Home",
-              style: TextStyle(
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white),
+    return GetBuilder<SpecialityController>(
+        init: specialityController,
+        builder: (_) {
+          return InkWell(
+            splashColor: Colors.transparent,
+            onTap: () {
+              tapped(speciality.name);
+            },
+            child: Container(
+              margin: const EdgeInsets.only(left: 10),
+              height: 60,
+              width: 60,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: isSelected ? kcmain : kcmain.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Image.asset(
+                speciality.img,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          color: kcmain,
-          height: MediaQuery.of(context).size.height * 0.2,
-          width: MediaQuery.of(context).size.width,
-        ),
-
-        Container(), // Required some widget in between to float AppBar
-
-        const Positioned(
-          // To take AppBar Size only
-          top: 80.0,
-          left: 10.0,
-          right: 10.0,
-          child: SearchBar(),
-          // child: AppBar(
-          //   foregroundColor: kcmain,
-          //   backgroundColor: Colors.white,
-          //   leading: const Icon(Icons.menu),
-          //   primary: false,
-          //   title: const TextField(
-          //       decoration: InputDecoration(
-          //           hintText: "Search",
-          //           border: InputBorder.none,
-          //           hintStyle: TextStyle(color: Colors.grey))),
-          //   actions: <Widget>[
-          //     IconButton(
-          //       icon: const Icon(Icons.search, color: kcmain),
-          //       onPressed: () {},
-          //     )
-          //   ],
-          // ),
-        )
-      ],
-    );
+          );
+        });
   }
 }

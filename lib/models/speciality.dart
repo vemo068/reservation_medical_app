@@ -1,4 +1,5 @@
 class Specility {
+  bool isSelected = false;
   final String name;
   final String img;
   Specility({required this.name,required this.img});
