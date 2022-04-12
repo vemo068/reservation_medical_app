@@ -4,10 +4,10 @@ import 'package:reservation_medical_app/Controllers/speciality_controller.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
 import 'package:reservation_medical_app/medi_components/medi_card.dart';
+import 'package:reservation_medical_app/medi_components/mediappbar.dart';
 import 'package:reservation_medical_app/medi_components/search_bar.dart';
 import 'package:reservation_medical_app/medi_components/speciality_card.dart';
 import 'package:reservation_medical_app/models/speciality.dart';
-
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
@@ -18,11 +18,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: kcmain,
-            title: const Text("Home"),
-          ),
+          appBar: mediAppBar("Home"),
           drawer: const NewD(),
           backgroundColor: kcbackground,
           body: Padding(
@@ -67,31 +63,27 @@ class HomePage extends StatelessWidget {
                                 " doctors",
                             style: mediSubheadingStyle,
                           ),
-                          
                         ],
                       );
                     }),
-                    GetBuilder<SpecialityController>(
-                      init: specialityController,
-                      builder: (_) {
-                        return Expanded(
-                          child: SizedBox(
-                                  
-                                  width: double.infinity,
-                                  child: ListView.builder(
-                                    itemCount:
-                                        specialityController.getDoctors().length,
-                                    itemBuilder: (context, index) {
-                                      return MediCard(
-                                        doctor:
-                                            specialityController.getDoctors()[index],
-                                      );
-                                    },
-                                  ),
-                                ),
-                        );
-                      }
-                    )
+                GetBuilder<SpecialityController>(
+                    init: specialityController,
+                    builder: (_) {
+                      return Expanded(
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ListView.builder(
+                            itemCount: specialityController.getDoctors().length,
+                            itemBuilder: (context, index) {
+                              return MediCard(
+                                doctor:
+                                    specialityController.getDoctors()[index],
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    })
               ],
             ),
           )),

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'medi_colors.dart';
+
 const TextStyle mediHeading1Style = TextStyle(
   fontSize: 30,
   fontWeight: FontWeight.w400,
@@ -28,3 +30,9 @@ const TextStyle mediCaptionStyle = TextStyle(
   fontSize: 12,
   fontWeight: FontWeight.w400,
 );
+
+const TextStyle mediButtonStyle = TextStyle(
+    color: kcwhite,
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    letterSpacing: 1);
