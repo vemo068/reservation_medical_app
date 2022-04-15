@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/date_controller.dart';
+import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/medi_components/medi_calendar.dart';
 import 'package:reservation_medical_app/medi_components/mediappbar.dart';
 
@@ -11,6 +12,7 @@ class AppointPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kcbackground,
       appBar: mediAppBar("Appoint Page"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

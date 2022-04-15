@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:reservation_medical_app/Pages/appoint_page.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
+import 'package:reservation_medical_app/medi_components/contact_buttons.dart';
 import 'package:reservation_medical_app/medi_components/mediappbar.dart';
 import 'package:reservation_medical_app/models/doctor.dart';
 
@@ -16,6 +17,7 @@ class DoctorPage extends StatelessWidget {
       child: Stack(
         children: [
           Scaffold(
+            backgroundColor: kcbackground,
             appBar: mediAppBar("Doctor Details"),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -44,31 +46,17 @@ class DoctorPage extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
+                      ContactButtons(doctor:doctor),
                       SizedBox(
-                        width: 180,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30)),
-                              onPressed: () {},
-                              color: Colors.white,
-                              height: 50,
-                              minWidth: 50,
-                              child: Icon(Icons.call_outlined),
-                            ),
-                            MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30)),
-                              onPressed: () {},
-                              color: Colors.white,
-                              height: 50,
-                              minWidth: 50,
-                              child: Icon(Icons.mail_outline),
-                            )
-                          ],
-                        ),
+                        height: 10,
+                      ),
+                      Text(
+                        doctor.name,
+                        style: mediHeading3Style,
+                      ),
+                      Text(
+                        doctor.speciality.name,
+                        style: mediBodyStyle,
                       ),
                     ],
                   ),

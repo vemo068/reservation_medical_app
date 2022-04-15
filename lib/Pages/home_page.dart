@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/speciality_controller.dart';
+import 'package:reservation_medical_app/Pages/specialities_page.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
 import 'package:reservation_medical_app/medi_components/medi_card.dart';
@@ -35,6 +36,20 @@ class HomePage extends StatelessWidget {
                     builder: (_) {
                       return Column(
                         children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Specialities"),
+                              TextButton(
+                                  onPressed: () {
+                                    Get.to(() => SpecialitiesPage());
+                                  },
+                                  child: Text("Show All"))
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           SizedBox(
                             height: 60,
                             width: double.infinity,
