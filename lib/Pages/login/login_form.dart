@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:reservation_medical_app/Pages/home_page.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/medi_components/medi_button.dart';
 import 'package:reservation_medical_app/medi_components/mediappbar.dart';
@@ -47,7 +49,9 @@ class LoginForm extends StatelessWidget {
               height: 20,
             ),
             MediButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => HomePage());
+                },
                 text: "Login",
                 color: Colors.green,
                 ctx: context)

@@ -23,6 +23,7 @@ class DoctorPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: SingleChildScrollView(
                   child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,7 +47,7 @@ class DoctorPage extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      ContactButtons(doctor:doctor),
+                      ContactButtons(doctor: doctor),
                       SizedBox(
                         height: 10,
                       ),
@@ -58,6 +59,40 @@ class DoctorPage extends StatelessWidget {
                         doctor.speciality.name,
                         style: mediBodyStyle,
                       ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Location:",
+                    style: mediHeadlineStyle,
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height / 4,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Price:",
+                        style: mediHeadlineStyle,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        "1200 DA",
+                        style: mediButtonStyle.copyWith(color: Colors.green),
+                      )
                     ],
                   ),
                 ],

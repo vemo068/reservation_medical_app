@@ -3,19 +3,19 @@ import 'package:flutter/cupertino.dart';
 import 'medi_colors.dart';
 
 const TextStyle mediHeading1Style = TextStyle(
-  fontSize: 30,
+  fontSize: 26,
   fontWeight: FontWeight.w400,
 );
 const TextStyle mediHeading2Style = TextStyle(
-  fontSize: 26,
-  fontWeight: FontWeight.w600,
-);
-const TextStyle mediHeading3Style = TextStyle(
   fontSize: 22,
   fontWeight: FontWeight.w600,
 );
+const TextStyle mediHeading3Style = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w600,
+);
 const TextStyle mediHeadlineStyle = TextStyle(
-  fontSize: 28,
+  fontSize: 24,
   fontWeight: FontWeight.w700,
 );
 const TextStyle mediBodyStyle = TextStyle(
@@ -27,7 +27,7 @@ const TextStyle mediSubheadingStyle = TextStyle(
   fontWeight: FontWeight.w400,
 );
 const TextStyle mediCaptionStyle = TextStyle(
-  fontSize: 12,
+  fontSize: 14,
   fontWeight: FontWeight.w400,
 );
 

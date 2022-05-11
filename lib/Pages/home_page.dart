@@ -42,6 +42,7 @@ class HomePage extends StatelessWidget {
                               Text("Specialities"),
                               TextButton(
                                   onPressed: () {
+                                    specialityController.getRequet();
                                     Get.to(() => SpecialitiesPage());
                                   },
                                   child: Text("Show All"))

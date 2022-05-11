@@ -1,15 +1,16 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reservation_medical_app/Controllers/date_controller.dart';
+import 'package:reservation_medical_app/Controllers/appointement_controller.dart';
 
 class MediCalendar extends StatelessWidget {
   MediCalendar({Key? key}) : super(key: key);
-  final DateController _dateController = Get.find<DateController>();
+  final AppointementController _dateController =
+      Get.find<AppointementController>();
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DateController>(
+    return GetBuilder<AppointementController>(
         init: _dateController,
         builder: (_) {
           return CalendarTimeline(
