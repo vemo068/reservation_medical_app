@@ -84,9 +84,10 @@ class HttpService {
       "doctor_id": rendV.doctor.id,
       "label_id": rendV.hour.id,
     };
-    Response response = await post(Uri.parse(postRdv), body: json.encode(data));
+    Response response = await post(Uri.parse(postRdv),
+        body: json.encode(data), headers: {"Content-Type": "application/json"});
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       var body = await json.decode(response.body);
       return RendV.fromJson(body);
     } else {
