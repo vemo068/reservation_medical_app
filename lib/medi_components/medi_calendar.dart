@@ -16,7 +16,7 @@ class MediCalendar extends StatelessWidget {
           return CalendarTimeline(
             locale: 'en',
             dayNameColor: Colors.black,
-            initialDate: _dateController.choosedDate!,
+            initialDate: _dateController.initDate,
             firstDate: DateTime.now(),
             lastDate: DateTime(2023, 9, 15),
             onDateSelected: _dateController.onSelectDate,

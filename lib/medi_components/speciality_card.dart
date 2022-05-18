@@ -7,13 +7,13 @@ import 'package:reservation_medical_app/models/speciality.dart';
 class SpecialityCard extends StatelessWidget {
   final Specility speciality;
   final Function(String) tapped;
-  final bool isSelected;
-  SpecialityCard({
-    Key? key,
-    required this.speciality,
-    required this.tapped,
-    required this.isSelected,
-  }) : super(key: key);
+  bool isSelected;
+  SpecialityCard(
+      {Key? key,
+      required this.speciality,
+      required this.tapped,
+      this.isSelected = false})
+      : super(key: key);
   final SpecialityController specialityController =
       Get.find<SpecialityController>();
   @override
@@ -21,11 +21,17 @@ class SpecialityCard extends StatelessWidget {
     return GetBuilder<SpecialityController>(
         init: specialityController,
         builder: (_) {
+          if (specialityController.currentSpeciality.specialityName ==
+              speciality.specialityName) {
+            isSelected = true;
+          } else {
+            isSelected = false;
+          }
           return InkWell(
             splashColor: Colors.transparent,
             hoverColor: Colors.transparent,
             onTap: () {
-              tapped(speciality.name);
+              tapped(speciality.specialityName);
             },
             child: AnimatedContainer(
               duration: Duration(milliseconds: 150),
@@ -37,8 +43,8 @@ class SpecialityCard extends StatelessWidget {
                 color: isSelected ? kcmain : kcmain.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Image.asset(
-                speciality.img,
+              child: Image.network(
+                speciality.imgUrl,
                 fit: BoxFit.cover,
               ),
             ),

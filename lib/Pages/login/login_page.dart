@@ -68,6 +68,7 @@ class LoginModeCard extends StatelessWidget {
               Expanded(
                 child: Icon(
                   Icons.person,
+                  color: kcsecondary,
                   semanticLabel: value,
                   size: MediaQuery.of(context).size.height * 0.15,
                 ),

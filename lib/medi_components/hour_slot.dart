@@ -3,11 +3,12 @@ import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/appointement_controller.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
+import 'package:reservation_medical_app/models/hour_label.dart';
 
 class HourSlot extends StatelessWidget {
-  final String hour;
+  final HourLabel label;
   bool isSelected = false;
-  HourSlot({Key? key, required this.hour}) : super(key: key);
+  HourSlot({Key? key, required this.label}) : super(key: key);
   final AppointementController _appointementController =
       Get.find<AppointementController>();
   @override
@@ -15,14 +16,14 @@ class HourSlot extends StatelessWidget {
     return GetBuilder(
         init: _appointementController,
         builder: (_) {
-          if (hour == _appointementController.choosedHour) {
+          if (label.label == _appointementController.choosedHour.label) {
             isSelected = true;
           } else {
             isSelected = false;
           }
           return InkWell(
             onTap: () {
-              _appointementController.onSelectHour(hour);
+              _appointementController.onSelectHour(label);
             },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -31,7 +32,7 @@ class HourSlot extends StatelessWidget {
                 color: isSelected ? kcmain : Colors.grey[300],
               ),
               child: Text(
-                hour,
+                label.label,
                 style: mediButtonStyle.copyWith(
                     color: isSelected ? Colors.white : Colors.black),
               ),

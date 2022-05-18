@@ -1,15 +1,22 @@
 class Specility {
-  int? id;
+  int? specialityId;
   // bool isSelected = false;
-  final String name;
-  final String img;
-  Specility({required this.name, required this.img});
+  final String specialityName;
+  final String imgUrl;
+  Specility(
+      {this.specialityId, required this.specialityName, required this.imgUrl});
+
+  static fromJson(Map<String, dynamic> json) {
+    return Specility(
+        specialityId: json["specialityId"],
+        specialityName: json["specialityName"],
+        imgUrl: json["imgUrl"]);
+  }
 }
 
-List<Specility> sps = [
-  Specility(name: "Eyes", img: "assets/eyes.png"),
-  Specility(name: "Denstis", img: "assets/tooth.png"),
-  Specility(name: "Bones", img: "assets/bone.png"),
-  Specility(name: "Lungs", img: "assets/lungs.png"),
-  Specility(name: "Genral", img: "assets/general.png"),
+var sps = [
+  Specility(
+      specialityId: 1,
+      specialityName: "specialityName",
+      imgUrl: "assets/tooth.png")
 ];

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
 import 'package:reservation_medical_app/Pages/appoint_page.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
@@ -8,11 +9,12 @@ import 'package:reservation_medical_app/medi_components/mediappbar.dart';
 import 'package:reservation_medical_app/models/doctor.dart';
 
 class DoctorPage extends StatelessWidget {
-  final Doctor doctor;
-  const DoctorPage({Key? key, required this.doctor}) : super(key: key);
+  final DoctorController doctorController = Get.find<DoctorController>();
+  DoctorPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Doctor doctor = doctorController.currentDoctor!;
     return SafeArea(
       child: Stack(
         children: [
@@ -56,7 +58,7 @@ class DoctorPage extends StatelessWidget {
                         style: mediHeading3Style,
                       ),
                       Text(
-                        doctor.speciality.name,
+                        doctor.speciality.specialityName,
                         style: mediBodyStyle,
                       ),
                     ],
@@ -95,6 +97,9 @@ class DoctorPage extends StatelessWidget {
                       )
                     ],
                   ),
+                  SizedBox(
+                    height: 70,
+                  )
                 ],
               )),
             ),
@@ -108,7 +113,9 @@ class DoctorPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               onPressed: () {
-                Get.to(() => AppointPage());
+                Get.to(() => AppointPage(
+                      dr: doctor,
+                    ));
               },
               color: kcsecondary,
               minWidth: double.infinity,

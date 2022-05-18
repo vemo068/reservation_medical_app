@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
 import 'package:reservation_medical_app/Controllers/speciality_controller.dart';
 import 'package:reservation_medical_app/Pages/specialities_page.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
@@ -9,9 +11,11 @@ import 'package:reservation_medical_app/medi_components/mediappbar.dart';
 import 'package:reservation_medical_app/medi_components/search_bar.dart';
 import 'package:reservation_medical_app/medi_components/speciality_card.dart';
 import 'package:reservation_medical_app/models/speciality.dart';
+import 'package:reservation_medical_app/utils/http_service.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
+  final DoctorController doctorController = Get.put(DoctorController());
   final SpecialityController specialityController =
       Get.put(SpecialityController());
 
@@ -36,13 +40,15 @@ class HomePage extends StatelessWidget {
                     builder: (_) {
                       return Column(
                         children: [
+                        
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Specialities"),
                               TextButton(
-                                  onPressed: () {
-                                    specialityController.getRequet();
+                                  onPressed: () async {
+                                    await HttpService().getAllSpecilities();
+                                    // specialityController.getRequet();
                                     Get.to(() => SpecialitiesPage());
                                   },
                                   child: Text("Show All"))
@@ -56,26 +62,24 @@ class HomePage extends StatelessWidget {
                             width: double.infinity,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: sps.length,
+                              itemCount:
+                                  specialityController.specialities.length,
                               itemBuilder: ((context, index) {
                                 return SpecialityCard(
-                                  speciality: sps[index],
+                                  speciality:
+                                      specialityController.specialities[index],
                                   tapped: (catId) {
-                                    specialityController.currentSpeciality =
-                                        sps[index];
-                                    specialityController.update();
+                                    specialityController.onTapSpeciality(
+                                        specialityController
+                                            .specialities[index]);
                                   },
-                                  isSelected:
-                                      specialityController.currentSpeciality ==
-                                              sps[index]
-                                          ? true
-                                          : false,
                                 );
                               }),
                             ),
                           ),
                           Text(
-                            specialityController.currentSpeciality.name +
+                            specialityController
+                                    .currentSpeciality.specialityName +
                                 " doctors",
                             style: mediSubheadingStyle,
                           ),
@@ -89,11 +93,10 @@ class HomePage extends StatelessWidget {
                         child: SizedBox(
                           width: double.infinity,
                           child: ListView.builder(
-                            itemCount: specialityController.getDoctors().length,
+                            itemCount: specialityController.doctors.length,
                             itemBuilder: (context, index) {
                               return MediCard(
-                                doctor:
-                                    specialityController.getDoctors()[index],
+                                doctor: specialityController.doctors[index],
                               );
                             },
                           ),

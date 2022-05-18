@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/appointement_controller.dart';
+import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
 
 class AppointConfirmation extends StatelessWidget {
   AppointConfirmation({Key? key}) : super(key: key);
+  DoctorController doctorController = Get.find<DoctorController>();
   AppointementController _appointementController =
       Get.find<AppointementController>();
   @override
@@ -26,6 +28,7 @@ class AppointConfirmation extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
+            _appointementController.sendRendv(doctorController.currentDoctor!);
             Get.back();
           },
           child: Text(

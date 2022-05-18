@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
 import 'package:reservation_medical_app/Pages/doctor_page.dart';
 
 import 'package:reservation_medical_app/medi_components/medi_text.dart';
@@ -9,8 +10,8 @@ import '../Styles/medi_colors.dart';
 
 class MediCard extends StatelessWidget {
   final Doctor? doctor;
-  const MediCard({Key? key, required this.doctor}) : super(key: key);
-
+  MediCard({Key? key, required this.doctor}) : super(key: key);
+  final DoctorController doctorController = Get.find<DoctorController>();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,7 +21,8 @@ class MediCard extends StatelessWidget {
         elevation: 5,
         child: InkWell(
           onTap: () {
-            Get.to(() => DoctorPage(doctor: doctor!));
+            doctorController.currentDoctor = doctor;
+            Get.to(() => DoctorPage());
           },
           child: Container(
             height: 130,
@@ -57,7 +59,7 @@ class MediCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           MediText.headingThree(doctor!.name),
-                          MediText.body(doctor!.speciality.name),
+                          MediText.body(doctor!.speciality.specialityName),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [

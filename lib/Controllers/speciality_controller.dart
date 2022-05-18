@@ -4,48 +4,42 @@ import 'package:get/get.dart';
 import 'package:reservation_medical_app/models/doctor.dart';
 import 'package:reservation_medical_app/models/speciality.dart';
 import 'package:http/http.dart' as http;
+import 'package:reservation_medical_app/utils/http_service.dart';
 
 class SpecialityController extends GetxController {
-  Specility currentSpeciality = Specility(name: "All", img: "");
-  List<dynamic> specialities = [];
-  getRequet() async {
-    try {
-      var response = await http.get(Uri.parse('http://localhost:8080/sps'));
-      if (response.statusCode == 200) {
-        var responsebody = await jsonDecode(response.body);
-        //var responsebody = jsonDecode(response.body);
+  Specility currentSpeciality = Specility(specialityName: "All", imgUrl: "");
+  HttpService _httpService = HttpService();
+  List<Doctor> doctors = [];
+  List<Specility> specialities = [];
 
-        specialities = responsebody;
-      } else {
-        print("Error ${response.statusCode}");
-        specialities = [];
-      }
-    } catch (e) {
-      print("Error Catch $e");
-      specialities = [];
-    }
-
-    print(specialities);
+  @override
+  void onInit() {
+    getAllSpecialities();
+    getDoctors();
+    update();
+    super.onInit();
   }
-  // onTapSpeciality(Specility speciality) {
-  //   currentSpeciality = speciality;
-  //   speciality.isSelected = currentSpeciality == speciality ? true : false;
-  //   update();
-  //   print(currentSpeciality.name);
-  // }
 
-  List<Doctor?> getDoctors() {
-    List<Doctor?> listOfDoctors = [];
-    for (var i = 0; i < sevenDoctors.length; i++) {
-      if (sevenDoctors[i].speciality == currentSpeciality) {
-        listOfDoctors.add(sevenDoctors[i]);
-      }
-    }
+  onTapSpeciality(Specility speciality) {
+    currentSpeciality = speciality;
+    getDoctors();
+    // speciality.isSelected = currentSpeciality == speciality ? true : false;
+    update();
+    print(currentSpeciality.specialityName);
+  }
 
-    if (currentSpeciality.name == "All") {
-      return sevenDoctors;
+  Future<void> getAllSpecialities() async {
+    specialities = await _httpService.getAllSpecilities();
+    update();
+  }
+
+  Future<void> getDoctors() async {
+    if (currentSpeciality.specialityName == "All") {
+      doctors = await _httpService.getAllDoctors();
     } else {
-      return listOfDoctors;
+      doctors = await _httpService
+          .getSpecialityDoctors(currentSpeciality.specialityId!);
     }
+    update();
   }
 }

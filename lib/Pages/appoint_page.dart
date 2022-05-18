@@ -6,10 +6,12 @@ import 'package:reservation_medical_app/Styles/medi_styles.dart';
 import 'package:reservation_medical_app/medi_components/hour_slot.dart';
 import 'package:reservation_medical_app/medi_components/medi_calendar.dart';
 import 'package:reservation_medical_app/medi_components/mediappbar.dart';
+import 'package:reservation_medical_app/models/doctor.dart';
 import 'package:reservation_medical_app/models/hour_label.dart';
 
 class AppointPage extends StatelessWidget {
-  AppointPage({Key? key}) : super(key: key);
+  final Doctor dr;
+  AppointPage({Key? key, required this.dr}) : super(key: key);
   final AppointementController _appointementController =
       Get.put(AppointementController());
 
@@ -37,12 +39,26 @@ class AppointPage extends StatelessWidget {
                   "Choose Time",
                   style: mediHeadlineStyle,
                 ),
-                Wrap(
-                  spacing: 20,
-                  runSpacing: 20,
-                  children:
-                      hourLabels.map((hour) => HourSlot(hour: hour)).toList(),
-                ),
+                GetBuilder<AppointementController>(
+                    init: _appointementController,
+                    builder: (_) {
+                      return _appointementController.loading
+                          ? Center(
+                              child: Text(
+                                "Loading...",
+                                style: mediHeading2Style,
+                              ),
+                            )
+                          : Wrap(
+                              spacing: 20,
+                              runSpacing: 20,
+                              children: _appointementController.allLabels
+                                  .map((label) => HourSlot(
+                                        label: label,
+                                      ))
+                                  .toList(),
+                            );
+                    }),
               ],
             ),
           ),
