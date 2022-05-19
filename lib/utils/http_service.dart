@@ -76,6 +76,22 @@ class HttpService {
     }
   }
 
+  Future<List<HourLabel>> getAvHourLabels(int doctor_id,String date) async {
+    Response res = await get(Uri.parse(avHourLabelsAll+"?dr_id=$doctor_id&date=$date"));
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+      List<HourLabel> hourLabels = [];
+      for (var item in body) {
+        hourLabels.add(HourLabel.fromJson(item));
+      }
+      //  List<Specility> specialities =body.map((e) => Speciality.fromJson(e)).toList() ;
+
+      return hourLabels;
+    } else {
+      throw "Unable to retrieve labels.";
+    }
+  }
   Future<RendV> postRendV(RendV rendV) async {
     // var response = await http.get(Uri.parse(url));
     Map<String, dynamic> data = {

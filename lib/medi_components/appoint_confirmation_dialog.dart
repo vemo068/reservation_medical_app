@@ -29,6 +29,8 @@ class AppointConfirmation extends StatelessWidget {
         TextButton(
           onPressed: () {
             _appointementController.sendRendv(doctorController.currentDoctor!);
+            _appointementController.getAvLabels();
+            _appointementController.update();
             Get.back();
           },
           child: Text(
