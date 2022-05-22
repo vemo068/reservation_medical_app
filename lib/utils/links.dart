@@ -7,3 +7,5 @@ String specialityDoctorsUrl = baseUrl + "specialitydoctors";
 String hourLabelsAll = baseUrl + "hourlabels";
 String avHourLabelsAll = baseUrl + "avhours";
 String postRdv = baseUrl + "sendrdv";
+
+String listRdvs = baseUrl + "listrdvs";

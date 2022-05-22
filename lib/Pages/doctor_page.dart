@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
 import 'package:reservation_medical_app/Pages/appoint_page.dart';
+import 'package:reservation_medical_app/Pages/dr_home.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
 import 'package:reservation_medical_app/medi_components/contact_buttons.dart';
+import 'package:reservation_medical_app/medi_components/medi_button.dart';
 import 'package:reservation_medical_app/medi_components/mediappbar.dart';
 import 'package:reservation_medical_app/models/doctor.dart';
 
@@ -27,6 +29,14 @@ class DoctorPage extends StatelessWidget {
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  MediButton(
+                    onPressed: () {
+                      Get.to(() => HomeDoctor());
+                    },
+                    text: "ShowAppointements",
+                    color: kcsecondary,
+                    ctx: context,
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

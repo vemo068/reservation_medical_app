@@ -1,6 +1,7 @@
 import 'package:reservation_medical_app/models/RendV.dart';
 import 'package:reservation_medical_app/models/doctor.dart';
 import 'package:reservation_medical_app/models/hour_label.dart';
+import 'package:reservation_medical_app/models/hour_with_rdvs.dart';
 import 'package:reservation_medical_app/models/speciality.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
@@ -76,8 +77,9 @@ class HttpService {
     }
   }
 
-  Future<List<HourLabel>> getAvHourLabels(int doctor_id,String date) async {
-    Response res = await get(Uri.parse(avHourLabelsAll+"?dr_id=$doctor_id&date=$date"));
+  Future<List<HourLabel>> getAvHourLabels(int doctor_id, String date) async {
+    Response res =
+        await get(Uri.parse(avHourLabelsAll + "?dr_id=$doctor_id&date=$date"));
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
@@ -92,6 +94,7 @@ class HttpService {
       throw "Unable to retrieve labels.";
     }
   }
+
   Future<RendV> postRendV(RendV rendV) async {
     // var response = await http.get(Uri.parse(url));
     Map<String, dynamic> data = {
@@ -108,6 +111,24 @@ class HttpService {
       return RendV.fromJson(body);
     } else {
       throw "Unable to send rendv.";
+    }
+  }
+
+  Future<List<HourWithRdvs>> getListRdvs(int doctor_id, String date) async {
+    Response res =
+        await get(Uri.parse(listRdvs + "?dr_id=$doctor_id&date=$date"));
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+      List<HourWithRdvs> hourLabels = [];
+      for (var item in body) {
+        hourLabels.add(HourWithRdvs.fromJson(item));
+      }
+      //  List<Specility> specialities =body.map((e) => Speciality.fromJson(e)).toList() ;
+
+      return hourLabels;
+    } else {
+      throw "Unable to retrieve labels.";
     }
   }
 }

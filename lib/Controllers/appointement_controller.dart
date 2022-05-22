@@ -5,6 +5,7 @@ import 'package:reservation_medical_app/medi_components/appoint_confirmation_dia
 import 'package:reservation_medical_app/models/RendV.dart';
 import 'package:reservation_medical_app/models/doctor.dart';
 import 'package:reservation_medical_app/models/hour_label.dart';
+import 'package:reservation_medical_app/models/hour_with_rdvs.dart';
 import 'package:reservation_medical_app/models/user.dart';
 import 'package:reservation_medical_app/utils/http_service.dart';
 
@@ -15,19 +16,22 @@ class AppointementController extends GetxController {
   HourLabel choosedHour = HourLabel(label: "label");
   DateTime initDate = DateTime.now();
   String? appointementMessage;
+
+  List<HourWithRdvs> appointments = [];
   List<HourLabel> allLabels = [];
   @override
   void onInit() {
     super.onInit();
     getAvLabels();
+    getListRdv();
   }
 
   onSelectDate(DateTime? date) {
-   
     choosedHour = HourLabel(label: "label");
     initDate = date!;
     choosedDate = date.toString().substring(0, 10);
-     getAvLabels();
+    getListRdv();
+    getAvLabels();
     update();
     print(choosedDate);
   }
@@ -64,7 +68,8 @@ class AppointementController extends GetxController {
 
   Future<void> getAvLabels() async {
     loading = true;
-    allLabels = await _httpService.getAvHourLabels(doctorController.currentDoctor!.id!, choosedDate!);
+    allLabels = await _httpService.getAvHourLabels(
+        doctorController.currentDoctor!.id!, choosedDate!);
     loading = false;
     update();
   }
@@ -81,5 +86,13 @@ class AppointementController extends GetxController {
         doctor: doctor,
         hour: choosedHour);
     await _httpService.postRendV(rendV);
+  }
+
+  Future<void> getListRdv() async {
+    loading = true;
+    appointments = await _httpService.getListRdvs(
+        doctorController.currentDoctor!.id!, choosedDate!);
+    loading = false;
+    update();
   }
 }
