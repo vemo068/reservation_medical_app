@@ -16,7 +16,7 @@ class AppointementController extends GetxController {
   HourLabel choosedHour = HourLabel(label: "label");
   DateTime initDate = DateTime.now();
   String? appointementMessage;
-
+  
   List<HourWithRdvs> appointments = [];
   List<HourLabel> allLabels = [];
   @override
@@ -95,4 +95,5 @@ class AppointementController extends GetxController {
     loading = false;
     update();
   }
+ 
 }

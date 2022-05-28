@@ -5,7 +5,7 @@ import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/models/speciality.dart';
 
 class SpecialityCard extends StatelessWidget {
-  final Specility speciality;
+  final Speciality speciality;
   final Function(String) tapped;
   bool isSelected;
   SpecialityCard(

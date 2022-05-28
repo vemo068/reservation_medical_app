@@ -20,7 +20,7 @@ const TextStyle mediHeadlineStyle = TextStyle(
 );
 const TextStyle mediBodyStyle = TextStyle(
   fontSize: 16,
-  fontWeight: FontWeight.w400,
+  fontWeight: FontWeight.w600,
 );
 const TextStyle mediSubheadingStyle = TextStyle(
   fontSize: 20,

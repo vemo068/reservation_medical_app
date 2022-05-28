@@ -8,14 +8,14 @@ import 'package:http/http.dart';
 import 'package:reservation_medical_app/utils/links.dart';
 
 class HttpService {
-  Future<List<Specility>> getAllSpecilities() async {
+  Future<List<Speciality>> getAllSpecilities() async {
     Response res = await get(Uri.parse(specialitiesUrl));
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
-      List<Specility> specialities = [];
+      List<Speciality> specialities = [];
       for (var item in body) {
-        specialities.add(Specility.fromJson(item));
+        specialities.add(Speciality.fromJson(item));
       }
       //  List<Specility> specialities =body.map((e) => Speciality.fromJson(e)).toList() ;
 
@@ -127,6 +127,20 @@ class HttpService {
       //  List<Specility> specialities =body.map((e) => Speciality.fromJson(e)).toList() ;
 
       return hourLabels;
+    } else {
+      throw "Unable to retrieve labels.";
+    }
+  }
+
+  Future<List<RendV>> getMyAppointments(int userId) async {
+    Response res = await get(Uri.parse(myAppointments + "?id=$userId"));
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+      List<RendV> myAppointments = [];
+      for (var item in body) {
+        myAppointments.add(RendV.fromJson(item));
+      }
+      return myAppointments;
     } else {
       throw "Unable to retrieve labels.";
     }

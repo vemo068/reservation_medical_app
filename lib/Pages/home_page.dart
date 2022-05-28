@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:reservation_medical_app/Controllers/appointement_controller.dart';
 import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
 import 'package:reservation_medical_app/Controllers/speciality_controller.dart';
+import 'package:reservation_medical_app/Controllers/user_appointments.dart';
+import 'package:reservation_medical_app/Pages/my_appoitements.dart';
 import 'package:reservation_medical_app/Pages/specialities_page.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
@@ -24,23 +27,26 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
           appBar: mediAppBar("Home"),
-          drawer: const NewD(),
+          drawer: NewD(),
           backgroundColor: kcbackground,
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Center(child: Text("Welcome", style: mediHeading3Style)),
-                const Center(
-                    child: Text("Choose a Doctor", style: mediHeading3Style)),
-                const SearchBar(),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Welcome", style: mediHeadlineStyle),
+                Text("Choose a Doctor", style: mediHeadlineStyle),
+                SizedBox(
+                  height: 20,
+                ),
                 GetBuilder<SpecialityController>(
                     init: specialityController,
                     builder: (_) {
                       return Column(
                         children: [
-                        
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -111,12 +117,26 @@ class HomePage extends StatelessWidget {
 }
 
 class NewD extends StatelessWidget {
-  const NewD({
+  NewD({
     Key? key,
   }) : super(key: key);
-
+  final UserAppointments userAppointments = Get.put(UserAppointments());
   @override
   Widget build(BuildContext context) {
-    return const Drawer();
+    return Drawer(
+      child: Column(
+        children: [
+          ListTile(
+            leading: Icon(Icons.calendar_month_outlined),
+            title: Text("My Appointments"),
+            onTap: () {
+              userAppointments.getMyAppointements(0);
+              Get.back();
+              Get.to(() => MyAppointementsPage());
+            },
+          )
+        ],
+      ),
+    );
   }
 }

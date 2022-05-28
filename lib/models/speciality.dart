@@ -1,13 +1,13 @@
-class Specility {
+class Speciality {
   int? specialityId;
   // bool isSelected = false;
   final String specialityName;
   final String imgUrl;
-  Specility(
+  Speciality(
       {this.specialityId, required this.specialityName, required this.imgUrl});
 
   static fromJson(Map<String, dynamic> json) {
-    return Specility(
+    return Speciality(
         specialityId: json["specialityId"],
         specialityName: json["specialityName"],
         imgUrl: json["imgUrl"]);
@@ -15,7 +15,7 @@ class Specility {
 }
 
 var sps = [
-  Specility(
+  Speciality(
       specialityId: 1,
       specialityName: "specialityName",
       imgUrl: "assets/tooth.png")

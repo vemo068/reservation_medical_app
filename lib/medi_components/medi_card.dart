@@ -10,7 +10,9 @@ import '../Styles/medi_colors.dart';
 
 class MediCard extends StatelessWidget {
   final Doctor? doctor;
-  MediCard({Key? key, required this.doctor}) : super(key: key);
+  final bool clickable;
+  MediCard({Key? key, required this.doctor, this.clickable = true})
+      : super(key: key);
   final DoctorController doctorController = Get.find<DoctorController>();
   @override
   Widget build(BuildContext context) {
@@ -18,12 +20,14 @@ class MediCard extends StatelessWidget {
       padding: EdgeInsets.only(left: 20, right: 20, top: 10),
       child: Material(
         borderRadius: BorderRadius.circular(10),
-        elevation: 5,
+        elevation: clickable ? 5 : 0,
         child: InkWell(
-          onTap: () {
-            doctorController.currentDoctor = doctor;
-            Get.to(() => DoctorPage());
-          },
+          onTap: clickable
+              ? () {
+                  doctorController.currentDoctor = doctor;
+                  Get.to(() => DoctorPage());
+                }
+              : null,
           child: Container(
             height: 130,
             width: double.infinity,
@@ -36,18 +40,15 @@ class MediCard extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Hero(
-                    tag: doctor!.name,
-                    child: Container(
-                      height: 110,
-                      width: 110,
-                      margin: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          image: AssetImage(doctor!.img),
-                          fit: BoxFit.cover,
-                        ),
+                  child: Container(
+                    height: 110,
+                    width: 110,
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
+                        image: AssetImage(doctor!.img),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),

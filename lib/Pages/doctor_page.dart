@@ -18,125 +18,116 @@ class DoctorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Doctor doctor = doctorController.currentDoctor!;
     return SafeArea(
-      child: Stack(
-        children: [
-          Scaffold(
-            backgroundColor: kcbackground,
-            appBar: mediAppBar("Doctor Details"),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: SingleChildScrollView(
-                  child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      child: Scaffold(
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: MaterialButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            onPressed: () {
+              Get.to(() => AppointPage(
+                    dr: doctor,
+                  ));
+            },
+            color: kcsecondary,
+            minWidth: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.09,
+            child: Text(
+              "Appoint",
+              style: mediButtonStyle,
+            ),
+          ),
+        ),
+        backgroundColor: kcbackground,
+        appBar: mediAppBar("Doctor Details"),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: SingleChildScrollView(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MediButton(
+                onPressed: () {
+                  Get.to(() => HomeDoctor());
+                },
+                text: "ShowAppointements",
+                color: kcsecondary,
+                ctx: context,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  MediButton(
-                    onPressed: () {
-                      Get.to(() => HomeDoctor());
-                    },
-                    text: "ShowAppointements",
-                    color: kcsecondary,
-                    ctx: context,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Hero(
-                        tag: doctor.name,
-                        child: Center(
-                          child: Container(
-                            height: 180,
-                            width: 180,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                image: AssetImage(doctor.img),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                  Hero(
+                    tag: doctor.name,
+                    child: Center(
+                      child: Container(
+                        height: 180,
+                        width: 180,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            image: AssetImage(doctor.img),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ContactButtons(doctor: doctor),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        doctor.name,
-                        style: mediHeading3Style,
-                      ),
-                      Text(
-                        doctor.speciality.specialityName,
-                        style: mediBodyStyle,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Location:",
-                    style: mediHeadlineStyle,
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height / 4,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(18),
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Price:",
-                        style: mediHeadlineStyle,
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        "1200 DA",
-                        style: mediButtonStyle.copyWith(color: Colors.green),
-                      )
-                    ],
+                  ContactButtons(doctor: doctor),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    doctor.name,
+                    style: mediHeading3Style,
+                  ),
+                  Text(
+                    doctor.speciality.specialityName,
+                    style: mediBodyStyle,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Location:",
+                style: mediHeadlineStyle,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height / 4,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    "Price:",
+                    style: mediHeadlineStyle,
                   ),
                   SizedBox(
-                    height: 70,
+                    width: 20,
+                  ),
+                  Text(
+                    "1200 DA",
+                    style: mediButtonStyle.copyWith(color: Colors.green),
                   )
                 ],
-              )),
-            ),
-          ),
-          Positioned(
-            bottom: 20,
-            left: 20,
-            right: 20,
-            child: MaterialButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
               ),
-              onPressed: () {
-                Get.to(() => AppointPage(
-                      dr: doctor,
-                    ));
-              },
-              color: kcsecondary,
-              minWidth: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.09,
-              child: Text(
-                "Appoint",
-                style: mediButtonStyle,
-              ),
-            ),
-          ),
-        ],
+            ],
+          )),
+        ),
       ),
     );
   }

@@ -30,8 +30,9 @@ class AppointConfirmation extends StatelessWidget {
           onPressed: () {
             _appointementController.sendRendv(doctorController.currentDoctor!);
             _appointementController.getAvLabels();
-            _appointementController.update();
+
             Get.back();
+            _appointementController.update();
           },
           child: Text(
             'Ok',

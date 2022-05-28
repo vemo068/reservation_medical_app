@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/models/doctor.dart';
@@ -7,10 +7,10 @@ import 'package:http/http.dart' as http;
 import 'package:reservation_medical_app/utils/http_service.dart';
 
 class SpecialityController extends GetxController {
-  Specility currentSpeciality = Specility(specialityName: "All", imgUrl: "");
+  Speciality currentSpeciality = Speciality(specialityName: "All", imgUrl: "");
   HttpService _httpService = HttpService();
   List<Doctor> doctors = [];
-  List<Specility> specialities = [];
+  List<Speciality> specialities = [];
 
   @override
   void onInit() {
@@ -20,7 +20,7 @@ class SpecialityController extends GetxController {
     super.onInit();
   }
 
-  onTapSpeciality(Specility speciality) {
+  onTapSpeciality(Speciality speciality) {
     currentSpeciality = speciality;
     getDoctors();
     // speciality.isSelected = currentSpeciality == speciality ? true : false;

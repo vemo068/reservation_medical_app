@@ -17,73 +17,74 @@ class AppointPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          backgroundColor: kcbackground,
-          appBar: mediAppBar("Appoint Page"),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Choose Date",
-                  style: mediHeadlineStyle,
-                ),
-                MediCalendar(),
-                SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  "Choose Time",
-                  style: mediHeadlineStyle,
-                ),
-                GetBuilder<AppointementController>(
-                    init: _appointementController,
-                    builder: (_) {
-                      return _appointementController.loading
-                          ? Center(
+    return Scaffold(
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: MaterialButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          onPressed: () {
+            _appointementController.onTabAppointeButton(context);
+          },
+          color: Colors.green,
+          minWidth: double.infinity,
+          height: MediaQuery.of(context).size.height * 0.09,
+          child: Text(
+            "Make Appointement",
+            style: mediButtonStyle,
+          ),
+        ),
+      ),
+      backgroundColor: kcbackground,
+      appBar: mediAppBar("Appoint Page"),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Choose Date",
+              style: mediHeadlineStyle,
+            ),
+            MediCalendar(),
+            SizedBox(
+              height: 40,
+            ),
+            Text(
+              "Choose Time",
+              style: mediHeadlineStyle,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            GetBuilder<AppointementController>(
+                init: _appointementController,
+                builder: (_) {
+                  return _appointementController.loading
+                      ? Expanded(
+                          child: SizedBox(
+                            child: Center(
                               child: Text(
                                 "Loading...",
                                 style: mediHeading2Style,
                               ),
-                            )
-                          : Wrap(
-                              spacing: 20,
-                              runSpacing: 20,
-                              children: _appointementController.allLabels
-                                  .map((label) => HourSlot(
-                                        label: label,
-                                      ))
-                                  .toList(),
-                            );
-                    }),
-              ],
-            ),
-          ),
+                            ),
+                          ),
+                        )
+                      : Wrap(
+                          spacing: 20,
+                          runSpacing: 20,
+                          children: _appointementController.allLabels
+                              .map((label) => HourSlot(
+                                    label: label,
+                                  ))
+                              .toList(),
+                        );
+                }),
+          ],
         ),
-        Positioned(
-          bottom: 20,
-          left: 20,
-          right: 20,
-          child: MaterialButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            onPressed: () {
-              _appointementController.onTabAppointeButton(context);
-            },
-            color: Colors.green,
-            minWidth: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.09,
-            child: Text(
-              "Make Appointement",
-              style: mediButtonStyle,
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

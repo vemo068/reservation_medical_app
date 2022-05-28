@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/speciality_controller.dart';
 import 'package:reservation_medical_app/Pages/home_page.dart';
 import 'package:reservation_medical_app/Pages/login/login_page.dart';
+import 'package:reservation_medical_app/Pages/my_appoitements.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
 import 'package:reservation_medical_app/medi_components/medi_card.dart';

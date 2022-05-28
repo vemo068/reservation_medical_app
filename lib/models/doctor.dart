@@ -8,7 +8,7 @@ class Doctor {
 
   final String name;
   final String img;
-  final Specility speciality;
+  final Speciality speciality;
   final String workTime;
   final String phoneNumber;
   Doctor(
@@ -29,6 +29,6 @@ class Doctor {
         phoneNumber: json["phoneNumber"],
         name: json["name"],
         img: "assets/doctor.jpg",
-        speciality: Specility.fromJson(json["speciality"]));
+        speciality: Speciality.fromJson(json["speciality"]));
   }
 }

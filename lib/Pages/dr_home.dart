@@ -60,7 +60,9 @@ class HomeDoctor extends StatelessWidget {
                                       .appointments[indexAppoint].rdvs.length,
                                   itemBuilder: (context, index) {
                                     return appointementController
-                                            .appointments[index].rdvs.isNotEmpty
+                                            .appointments[indexAppoint]
+                                            .rdvs
+                                            .isNotEmpty
                                         ? Column(
                                             children: [
                                               ListTile(

@@ -9,3 +9,4 @@ String avHourLabelsAll = baseUrl + "avhours";
 String postRdv = baseUrl + "sendrdv";
 
 String listRdvs = baseUrl + "listrdvs";
+String myAppointments = baseUrl + "myappointmenst";
