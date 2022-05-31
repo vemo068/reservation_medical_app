@@ -27,19 +27,23 @@ class SpecialityController extends GetxController {
     update();
     print(currentSpeciality.specialityName);
   }
-
+bool spLoading = false;
   Future<void> getAllSpecialities() async {
+    spLoading = true;
     specialities = await _httpService.getAllSpecilities();
+    spLoading = false;
     update();
   }
-
+bool drLoading = false;
   Future<void> getDoctors() async {
+    drLoading = true;
     if (currentSpeciality.specialityName == "All") {
       doctors = await _httpService.getAllDoctors();
     } else {
       doctors = await _httpService
           .getSpecialityDoctors(currentSpeciality.specialityId!);
     }
+    drLoading = false;
     update();
   }
 }

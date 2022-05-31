@@ -29,7 +29,7 @@ class AppointPage extends StatelessWidget {
           },
           color: Colors.green,
           minWidth: double.infinity,
-          height: MediaQuery.of(context).size.height * 0.09,
+          height: MediaQuery.of(context).size.height * 0.07,
           child: Text(
             "Make Appointement",
             style: mediButtonStyle,

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
 import 'package:reservation_medical_app/Pages/appoint_page.dart';
-import 'package:reservation_medical_app/Pages/dr_home.dart';
+
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
 import 'package:reservation_medical_app/medi_components/contact_buttons.dart';
-import 'package:reservation_medical_app/medi_components/medi_button.dart';
 import 'package:reservation_medical_app/medi_components/mediappbar.dart';
 import 'package:reservation_medical_app/models/doctor.dart';
 
@@ -32,7 +31,7 @@ class DoctorPage extends StatelessWidget {
             },
             color: kcsecondary,
             minWidth: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.09,
+            height: MediaQuery.of(context).size.height * 0.07,
             child: Text(
               "Appoint",
               style: mediButtonStyle,
@@ -47,14 +46,6 @@ class DoctorPage extends StatelessWidget {
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MediButton(
-                onPressed: () {
-                  Get.to(() => HomeDoctor());
-                },
-                text: "ShowAppointements",
-                color: kcsecondary,
-                ctx: context,
-              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -77,7 +68,7 @@ class DoctorPage extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  ContactButtons(doctor: doctor),
+                  ContactButtons(phone: doctor.phoneNumber,email: doctor.email,),
                   SizedBox(
                     height: 10,
                   ),

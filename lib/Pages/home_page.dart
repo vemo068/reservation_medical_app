@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/appointement_controller.dart';
 import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
@@ -45,69 +44,79 @@ class HomePage extends StatelessWidget {
                 GetBuilder<SpecialityController>(
                     init: specialityController,
                     builder: (_) {
-                      return Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Specialities"),
-                              TextButton(
-                                  onPressed: () async {
-                                    await HttpService().getAllSpecilities();
-                                    // specialityController.getRequet();
-                                    Get.to(() => SpecialitiesPage());
-                                  },
-                                  child: Text("Show All"))
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            height: 60,
-                            width: double.infinity,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount:
-                                  specialityController.specialities.length,
-                              itemBuilder: ((context, index) {
-                                return SpecialityCard(
-                                  speciality:
-                                      specialityController.specialities[index],
-                                  tapped: (catId) {
-                                    specialityController.onTapSpeciality(
-                                        specialityController
-                                            .specialities[index]);
-                                  },
-                                );
-                              }),
-                            ),
-                          ),
-                          Text(
-                            specialityController
-                                    .currentSpeciality.specialityName +
-                                " doctors",
-                            style: mediSubheadingStyle,
-                          ),
-                        ],
-                      );
+                      return specialityController.spLoading
+                          ? Center(child: CircularProgressIndicator())
+                          : Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Specialities"),
+                                    TextButton(
+                                        onPressed: () async {
+                                          await HttpService()
+                                              .getAllSpecilities();
+                                          // specialityController.getRequet();
+                                          Get.to(() => SpecialitiesPage());
+                                        },
+                                        child: Text("Show All"))
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                SizedBox(
+                                  height: 60,
+                                  width: double.infinity,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: specialityController
+                                        .specialities.length,
+                                    itemBuilder: ((context, index) {
+                                      return SpecialityCard(
+                                        speciality: specialityController
+                                            .specialities[index],
+                                        tapped: (catId) {
+                                          specialityController.onTapSpeciality(
+                                              specialityController
+                                                  .specialities[index]);
+                                        },
+                                      );
+                                    }),
+                                  ),
+                                ),
+                                Text(
+                                  specialityController
+                                          .currentSpeciality.specialityName +
+                                      " doctors",
+                                  style: mediSubheadingStyle,
+                                ),
+                              ],
+                            );
                     }),
                 GetBuilder<SpecialityController>(
                     init: specialityController,
                     builder: (_) {
-                      return Expanded(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: ListView.builder(
-                            itemCount: specialityController.doctors.length,
-                            itemBuilder: (context, index) {
-                              return MediCard(
-                                doctor: specialityController.doctors[index],
-                              );
-                            },
-                          ),
-                        ),
-                      );
+                      return specialityController.drLoading
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : Expanded(
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: ListView.builder(
+                                  itemCount:
+                                      specialityController.doctors.length,
+                                  itemBuilder: (context, index) {
+                                    return MediCard(
+                                      doctor:
+                                          specialityController.doctors[index],
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
                     })
               ],
             ),
@@ -126,6 +135,9 @@ class NewD extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
+          DrawerHeader(
+            child: Text('Drawer Header'),
+          ),
           ListTile(
             leading: Icon(Icons.calendar_month_outlined),
             title: Text("My Appointments"),

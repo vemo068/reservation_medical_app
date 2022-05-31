@@ -23,14 +23,14 @@ class AppointementController extends GetxController {
   void onInit() {
     super.onInit();
     getAvLabels();
-    getListRdv();
+    
   }
 
   onSelectDate(DateTime? date) {
     choosedHour = HourLabel(label: "label");
     initDate = date!;
     choosedDate = date.toString().substring(0, 10);
-    getListRdv();
+ 
     getAvLabels();
     update();
     print(choosedDate);
@@ -88,12 +88,6 @@ class AppointementController extends GetxController {
     await _httpService.postRendV(rendV);
   }
 
-  Future<void> getListRdv() async {
-    loading = true;
-    appointments = await _httpService.getListRdvs(
-        doctorController.currentDoctor!.id!, choosedDate!);
-    loading = false;
-    update();
-  }
+  
  
 }

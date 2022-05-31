@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Pages/home_page.dart';
+import 'package:reservation_medical_app/Pages/server_config.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/medi_components/medi_button.dart';
 import 'package:reservation_medical_app/medi_components/mediappbar.dart';
 
 class LoginForm extends StatelessWidget {
-  final String value;
-  LoginForm({Key? key, required this.value}) : super(key: key);
+  LoginForm({Key? key}) : super(key: key);
   String email = "";
   String password = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kcbackground,
-      appBar: mediAppBar("Login as $value"),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: kcmain,
+        title: Text("Login"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.to(() => ServerConfig());
+              },
+              icon: Icon(Icons.computer))
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(

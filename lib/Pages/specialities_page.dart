@@ -26,47 +26,60 @@ class SpecialitiesPage extends StatelessWidget {
                       mainAxisSpacing: 30),
                   itemCount: _specialityController.specialities.length,
                   itemBuilder: (context, index) {
-                    return Material(
-                      elevation: 5,
-                      borderRadius: BorderRadius.circular(8),
-                      child: InkWell(
-                        splashColor: kcsecondary,
-                        borderRadius: BorderRadius.circular(8),
-                        onTap: () {
-                          _specialityController.onTapSpeciality(
-                              _specialityController.specialities[index]);
-                          Get.to(() => SpecialityDoctorsPage());
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: kcmain.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                _specialityController
-                                                    .specialities[index]
-                                                    .imgUrl))),
-                                  )),
-                              Expanded(
-                                  child: Text(_specialityController
-                                      .specialities[index].specialityName))
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
+                    return SpecCard(
+                        speciality: _specialityController.specialities[index],);
                   });
             }),
+      ),
+    );
+  }
+}
+
+class SpecCard extends StatelessWidget {
+  final Speciality speciality;
+  SpecCard({
+    Key? key,required this.speciality,
+  }) : super(key: key);
+
+  final SpecialityController _specialityController =
+      Get.find<SpecialityController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 5,
+      borderRadius: BorderRadius.circular(8),
+      child: InkWell(
+        splashColor: kcsecondary,
+        borderRadius: BorderRadius.circular(8),
+        onTap: () {
+          _specialityController
+              .onTapSpeciality(speciality);
+          Get.to(() => SpecialityDoctorsPage());
+        },
+        child: Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: kcmain.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                  flex: 2,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                            image: NetworkImage(speciality.imgUrl))),
+                  )),
+              Expanded(
+                  child: Text(
+                      speciality.specialityName))
+            ],
+          ),
+        ),
       ),
     );
   }
