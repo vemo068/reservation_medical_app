@@ -48,29 +48,3 @@ class MyAppointementsPage extends StatelessWidget {
     );
   }
 }
-
-var fakeRenv = RendV(
-  id: 1,
-  date: "2022-05-22",
-  doctor: Doctor(
-    id: 1,
-    name: "Dr. A",
-    speciality: Speciality(
-      imgUrl: "assets/doctor.jpg",
-      specialityId: 1,
-      specialityName: "Cardiologue",
-    ),
-    email: '',
-    img: 'assets/doctor.jpg',
-    password: '',
-    phoneNumber: '',
-  ),
-  patient: Patient(
-    id: 1,
-    name: "Patient A",
-    email: '',
-    password: '',
-    phone: '',
-  ),
-  hour: HourLabel(label: "11:00"),
-);

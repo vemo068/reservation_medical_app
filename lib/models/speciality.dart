@@ -12,11 +12,12 @@ class Speciality {
         specialityName: json["specialityName"],
         imgUrl: json["imgUrl"]);
   }
-}
 
-var sps = [
-  Speciality(
-      specialityId: 1,
-      specialityName: "specialityName",
-      imgUrl: "assets/tooth.png")
-];
+  static Map<String, dynamic> toJson(Speciality speciality) {
+    return {
+      "specialityId": speciality.specialityId,
+      "specialityName": speciality.specialityName,
+      "imgUrl": speciality.imgUrl,
+    };
+  }
+}

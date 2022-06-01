@@ -47,7 +47,7 @@ class MediCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
-                        image: AssetImage(doctor!.img),
+                        image: AssetImage(doctor!.img!),
                         fit: BoxFit.cover,
                       ),
                     ),

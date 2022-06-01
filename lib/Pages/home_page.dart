@@ -129,7 +129,8 @@ class NewD extends StatelessWidget {
   NewD({
     Key? key,
   }) : super(key: key);
-  final UserController userController = Get.find<UserController>();
+  //final UserController userController = Get.find<UserController>();
+  final UserController userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
     return Drawer(

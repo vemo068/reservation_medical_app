@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
+import 'package:reservation_medical_app/Controllers/user_appointments.dart';
 import 'package:reservation_medical_app/Pages/appoint_page.dart';
-
+import 'package:reservation_medical_app/Pages/login/login_form.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
 import 'package:reservation_medical_app/medi_components/contact_buttons.dart';
@@ -11,7 +13,18 @@ import 'package:reservation_medical_app/models/doctor.dart';
 
 class DoctorPage extends StatelessWidget {
   final DoctorController doctorController = Get.find<DoctorController>();
+  final UserController userController = Get.find<UserController>();
   DoctorPage({Key? key}) : super(key: key);
+  
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +38,15 @@ class DoctorPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             onPressed: () {
-              Get.to(() => AppointPage(
-                    dr: doctor,
-                  ));
+              if (userController.currentUser == null) {
+                Get.to(() => LoginForm());
+                Get.snackbar(
+                    "Login First", "You should login to make appointments");
+              } else {
+                Get.to(() => AppointPage(
+                      dr: doctor,
+                    ));
+              }
             },
             color: kcsecondary,
             minWidth: double.infinity,
@@ -58,7 +77,7 @@ class DoctorPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
-                            image: AssetImage(doctor.img),
+                            image: AssetImage(doctor.img!),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -68,7 +87,10 @@ class DoctorPage extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  ContactButtons(phone: doctor.phoneNumber,email: doctor.email,),
+                  ContactButtons(
+                    phone: doctor.phoneNumber,
+                    email: doctor.email,
+                  ),
                   SizedBox(
                     height: 10,
                   ),
@@ -89,12 +111,34 @@ class DoctorPage extends StatelessWidget {
                 "Location:",
                 style: mediHeadlineStyle,
               ),
-              Container(
-                height: MediaQuery.of(context).size.height / 4,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(18),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                child: MaterialButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: kcmain,
+                  height: 50,
+                  onPressed: () {
+                    _launchInBrowser(Uri.parse(doctor.mapUrl!));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        color: kcwhite,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Open in Google Maps",
+                        style: mediButtonStyle,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
@@ -111,7 +155,7 @@ class DoctorPage extends StatelessWidget {
                     width: 20,
                   ),
                   Text(
-                    "1200 DA",
+                    "${doctor.price}DA",
                     style: mediButtonStyle.copyWith(color: Colors.green),
                   )
                 ],
