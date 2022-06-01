@@ -10,3 +10,4 @@ String postRdv = baseUrl + "sendrdv";
 
 String listRdvs = baseUrl + "listrdvs";
 String myAppointments = baseUrl + "myappointmenst";
+String loginUserUrl = baseUrl + "login";

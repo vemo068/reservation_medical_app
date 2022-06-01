@@ -17,7 +17,7 @@ class AppointementController extends GetxController {
   DateTime initDate = DateTime.now();
   String? appointementMessage;
   
-  List<HourWithRdvs> appointments = [];
+  
   List<HourLabel> allLabels = [];
   @override
   void onInit() {

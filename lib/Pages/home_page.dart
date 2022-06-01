@@ -129,20 +129,30 @@ class NewD extends StatelessWidget {
   NewD({
     Key? key,
   }) : super(key: key);
-  final UserAppointments userAppointments = Get.put(UserAppointments());
+  final UserController userController = Get.find<UserController>();
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
         children: [
           DrawerHeader(
-            child: Text('Drawer Header'),
+            child: userController.currentUser == null
+                ? Container(
+                    color: kcmain,
+                  )
+                : UserAccountsDrawerHeader(
+                    accountEmail: Text(userController.currentUser!.email),
+                    accountName: Text(
+                      userController.currentUser!.name,
+                      style: mediSubheadingStyle,
+                    ),
+                  ),
           ),
           ListTile(
             leading: Icon(Icons.calendar_month_outlined),
             title: Text("My Appointments"),
             onTap: () {
-              userAppointments.getMyAppointements(0);
+              userController.getMyAppointements(0);
               Get.back();
               Get.to(() => MyAppointementsPage());
             },

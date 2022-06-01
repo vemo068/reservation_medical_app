@@ -5,6 +5,7 @@ import 'package:reservation_medical_app/models/hour_with_rdvs.dart';
 import 'package:reservation_medical_app/models/speciality.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'package:reservation_medical_app/models/user.dart';
 import 'package:reservation_medical_app/utils/links.dart';
 
 class HttpService {
@@ -143,6 +144,26 @@ class HttpService {
       return myAppointments;
     } else {
       throw "Unable to retrieve labels.";
+    }
+  }
+    Future<Patient?> loginUser(String email, String password) async {
+    // var response = await http.get(Uri.parse(url));
+    Map<String, dynamic> data = {
+      "email": email,
+      "password": password,
+    };
+    Response response = await post(Uri.parse(loginUserUrl),
+        body: json.encode(data), headers: {"Content-Type": "application/json"});
+
+    if (response.statusCode == 200) {
+      if (response.body == "") {
+        return null;
+      } else {
+        var body = await json.decode(response.body);
+        return Patient.fromJson(body);
+      }
+    } else {
+      throw "Unable to send rendv.";
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservation_medical_app/Controllers/user_appointments.dart';
 import 'package:reservation_medical_app/Pages/home_page.dart';
 import 'package:reservation_medical_app/Pages/server_config.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
@@ -7,6 +8,7 @@ import 'package:reservation_medical_app/medi_components/medi_button.dart';
 import 'package:reservation_medical_app/medi_components/mediappbar.dart';
 
 class LoginForm extends StatelessWidget {
+  final UserController userController = Get.put(UserController());
   LoginForm({Key? key}) : super(key: key);
   String email = "";
   String password = "";
@@ -61,7 +63,7 @@ class LoginForm extends StatelessWidget {
             ),
             MediButton(
                 onPressed: () {
-                  Get.to(() => HomePage());
+                  userController.loginUser(email, password);
                 },
                 text: "Login",
                 color: Colors.green,

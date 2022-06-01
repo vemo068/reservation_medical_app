@@ -18,7 +18,7 @@ import 'package:reservation_medical_app/models/user.dart';
 class MyAppointementsPage extends StatelessWidget {
   MyAppointementsPage({Key? key}) : super(key: key);
   final DoctorController doctorController = Get.put(DoctorController());
-  final UserAppointments userAppointments = Get.find<UserAppointments>();
+  final UserController userAppointments = Get.find<UserController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
