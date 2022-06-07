@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
-import 'package:reservation_medical_app/Controllers/user_appointments.dart';
+import 'package:reservation_medical_app/Controllers/user_controller.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
+import 'package:reservation_medical_app/medi_components/medi_button.dart';
 import 'package:reservation_medical_app/medi_components/mediappbar.dart';
 
 class SignUpPersonal extends StatelessWidget {
@@ -13,7 +14,6 @@ class SignUpPersonal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: kcbackground,
-        
         appBar: mediAppBar("Personal info"),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -85,6 +85,19 @@ class SignUpPersonal extends StatelessWidget {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: MediButton(
+                        onPressed: () {
+                          userController.createPatientAndGoToHomePage();
+                        },
+                        text: "Create Accont",
+                        color: kcmain,
+                        ctx: context,
                       ),
                     ),
                   ]),

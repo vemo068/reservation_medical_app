@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/appointement_controller.dart';
 import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
+import 'package:reservation_medical_app/Controllers/user_controller.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
 
 class AppointConfirmation extends StatelessWidget {
@@ -9,6 +10,7 @@ class AppointConfirmation extends StatelessWidget {
   DoctorController doctorController = Get.find<DoctorController>();
   AppointementController _appointementController =
       Get.find<AppointementController>();
+  final UserController userController = Get.find<UserController>();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -28,11 +30,9 @@ class AppointConfirmation extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            _appointementController.sendRendv(doctorController.currentDoctor!);
-            _appointementController.getAvLabels();
-
-            Get.back();
-            _appointementController.update();
+            _appointementController.sendRendv(
+                doctorController.currentDoctor!, userController.currentUser!);
+            
           },
           child: Text(
             'Ok',

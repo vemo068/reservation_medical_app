@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/appointement_controller.dart';
 import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
-import 'package:reservation_medical_app/Controllers/user_appointments.dart';
+import 'package:reservation_medical_app/Controllers/user_controller.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
 import 'package:reservation_medical_app/medi_components/appointments_card.dart';
@@ -18,7 +18,7 @@ import 'package:reservation_medical_app/models/user.dart';
 class MyAppointementsPage extends StatelessWidget {
   MyAppointementsPage({Key? key}) : super(key: key);
   final DoctorController doctorController = Get.put(DoctorController());
-  final UserController userAppointments = Get.find<UserController>();
+  final UserController userController = Get.find<UserController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,22 +27,26 @@ class MyAppointementsPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GetBuilder(
-            init: userAppointments,
+            init: userController,
             builder: (_) {
-              return ListView.builder(
-                itemCount: userAppointments.myAppointements.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AppointementCard(
-                        rendV: userAppointments.myAppointements[index],
-                      ),
-                      SizedBox(height: 20),
-                    ],
-                  );
-                },
-              );
+              return userController.loading
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                      itemCount: userController.myAppointements.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AppointementCard(
+                              rendV: userController.myAppointements[index],
+                            ),
+                            SizedBox(height: 20),
+                          ],
+                        );
+                      },
+                    );
             }),
       ),
     );

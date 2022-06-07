@@ -24,4 +24,14 @@ class Patient {
        
         );
   }
+
+   static Map<String, dynamic> toJson(Patient patient) {
+    return {
+      "userId": patient.id,
+      "email": patient.email,
+      "password": patient.password,
+      "phoneNumber": patient.phone,
+      "name": patient.name,
+    };
+  }
 }

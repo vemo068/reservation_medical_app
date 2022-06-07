@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:reservation_medical_app/Controllers/user_controller.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
 import 'package:reservation_medical_app/medi_components/medi_card.dart';
@@ -6,8 +8,8 @@ import 'package:reservation_medical_app/models/RendV.dart';
 
 class AppointementCard extends StatelessWidget {
   final RendV rendV;
-  const AppointementCard({Key? key, required this.rendV}) : super(key: key);
-
+  AppointementCard({Key? key, required this.rendV}) : super(key: key);
+  final UserController userController = Get.find<UserController>();
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -26,12 +28,12 @@ class AppointementCard extends StatelessWidget {
                     width: 10,
                   ),
                   Text(rendV.date + ", " + rendV.hour.label,
-                      style: mediBodyStyle.copyWith(color: kcwhite)),
+                      style: mediButtonStyle.copyWith(color: kcwhite)),
                 ],
               ),
             ),
             decoration: BoxDecoration(
-              color: Color(0xff2D89FF),
+              color: kcsecondary,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(8), topRight: Radius.circular(8)),
             ),
@@ -44,7 +46,9 @@ class AppointementCard extends StatelessWidget {
             height: 10,
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              userController.deleteMyAppointment(rendV.id!);
+            },
             child: Container(
               margin: EdgeInsets.all(10),
               decoration: BoxDecoration(

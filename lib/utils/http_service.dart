@@ -146,7 +146,8 @@ class HttpService {
       throw "Unable to retrieve labels.";
     }
   }
-    Future<Patient?> loginUser(String email, String password) async {
+
+  Future<Patient?> loginUser(String email, String password) async {
     // var response = await http.get(Uri.parse(url));
     Map<String, dynamic> data = {
       "email": email,
@@ -164,6 +165,28 @@ class HttpService {
       }
     } else {
       throw "Unable to send rendv.";
+    }
+  }
+
+  Future<Patient> createPatient(Patient patient) async {
+    var data = Patient.toJson(patient);
+    Response response = await post(Uri.parse(addUserUrl),
+        body: json.encode(data), headers: {"Content-Type": "application/json"});
+
+    if (response.statusCode == 201) {
+      var body = await json.decode(response.body);
+      return Patient.fromJson(body);
+    } else {
+      throw "Unable to send rendv.";
+    }
+  }
+
+  Future<bool> deleteAppointment(int id) async {
+    Response response = await delete(Uri.parse(deleteRdvUrl + "?id=$id"));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

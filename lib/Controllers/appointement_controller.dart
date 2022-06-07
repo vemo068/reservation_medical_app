@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
+import 'package:reservation_medical_app/Pages/home_page.dart';
 import 'package:reservation_medical_app/medi_components/appoint_confirmation_dialog.dart';
 import 'package:reservation_medical_app/models/RendV.dart';
 import 'package:reservation_medical_app/models/doctor.dart';
@@ -16,21 +17,19 @@ class AppointementController extends GetxController {
   HourLabel choosedHour = HourLabel(label: "label");
   DateTime initDate = DateTime.now();
   String? appointementMessage;
-  
-  
+
   List<HourLabel> allLabels = [];
   @override
   void onInit() {
     super.onInit();
     getAvLabels();
-    
   }
 
   onSelectDate(DateTime? date) {
     choosedHour = HourLabel(label: "label");
     initDate = date!;
     choosedDate = date.toString().substring(0, 10);
- 
+
     getAvLabels();
     update();
     print(choosedDate);
@@ -74,20 +73,15 @@ class AppointementController extends GetxController {
     update();
   }
 
-  Future<void> sendRendv(Doctor doctor) async {
+  Future<void> sendRendv(Doctor doctor, Patient patient) async {
     RendV rendV = RendV(
         date: choosedDate!,
-        patient: Patient(
-            id: 0,
-            email: "email",
-            name: "name",
-            password: "password",
-            phone: "phone"),
+        patient: patient,
         doctor: doctor,
         hour: choosedHour);
     await _httpService.postRendV(rendV);
-  }
 
-  
- 
+    Get.offAll(HomePage());
+    Get.snackbar("Success", "Your Appointement has been Saved");
+  }
 }

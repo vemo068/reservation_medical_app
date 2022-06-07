@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/doctor_controller.dart';
-import 'package:reservation_medical_app/Controllers/user_appointments.dart';
+import 'package:reservation_medical_app/Controllers/user_controller.dart';
 import 'package:reservation_medical_app/Pages/appoint_page.dart';
 import 'package:reservation_medical_app/Pages/login/login_form.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,16 +15,6 @@ class DoctorPage extends StatelessWidget {
   final DoctorController doctorController = Get.find<DoctorController>();
   final UserController userController = Get.find<UserController>();
   DoctorPage({Key? key}) : super(key: key);
-  
-
-  Future<void> _launchInBrowser(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw 'Could not launch $url';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,21 +49,28 @@ class DoctorPage extends StatelessWidget {
         ),
         backgroundColor: kcbackground,
         appBar: mediAppBar("Doctor Details"),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                color: kcmain,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
+              ),
               child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Hero(
                     tag: doctor.name,
                     child: Center(
                       child: Container(
-                        height: 180,
-                        width: 180,
+                        height: 150,
+                        width: 150,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
@@ -87,82 +84,63 @@ class DoctorPage extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  ContactButtons(
-                    phone: doctor.phoneNumber,
-                    email: doctor.email,
+                  Text(
+                    "Dr." + doctor.name,
+                    style: mediHeadlineStyle.copyWith(color: kcwhite),
+                  ),
+                  Text(
+                    doctor.speciality.specialityName,
+                    style: mediSubheadingStyle.copyWith(color: kcwhite),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    doctor.name,
-                    style: mediHeading3Style,
-                  ),
-                  Text(
-                    doctor.speciality.specialityName,
-                    style: mediBodyStyle,
+                  ContactButtons(
+                    mapUrl: doctor.mapUrl!,
+                    phone: doctor.phoneNumber,
+                    email: doctor.email,
                   ),
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Location:",
-                style: mediHeadlineStyle,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                child: MaterialButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: kcmain,
-                  height: 50,
-                  onPressed: () {
-                    _launchInBrowser(Uri.parse(doctor.mapUrl!));
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: kcwhite,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Open in Google Maps",
-                        style: mediButtonStyle,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text("About Doctor :", style: mediHeadlineStyle),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Text(
-                    "Price:",
-                    style: mediHeadlineStyle,
+                    "${doctor.name} is an internationally recognised expert in nephrology and transplant medicine in area of cardiovascular diseases of uraemia, renal anaemia, and renal bone disease, progression of chronic kidney disease and mediators of acute kidney injury.",
+                    style: mediBodyStyle.copyWith(color: Colors.grey),
+                    textAlign: TextAlign.justify,
                   ),
                   SizedBox(
-                    width: 20,
+                    height: 20,
                   ),
-                  Text(
-                    "${doctor.price}DA",
-                    style: mediButtonStyle.copyWith(color: Colors.green),
-                  )
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Price :",
+                        style: mediHeadlineStyle,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        "${doctor.price}DA",
+                        style: mediButtonStyle.copyWith(color: Colors.green),
+                      )
+                    ],
+                  ),
                 ],
               ),
-            ],
-          )),
-        ),
+            ),
+          ],
+        )),
       ),
     );
   }

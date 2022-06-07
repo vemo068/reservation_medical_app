@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Controllers/appointement_controller.dart';
+import 'package:reservation_medical_app/Controllers/user_controller.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/Styles/medi_styles.dart';
 import 'package:reservation_medical_app/medi_components/hour_slot.dart';
@@ -14,6 +15,7 @@ class AppointPage extends StatelessWidget {
   AppointPage({Key? key, required this.dr}) : super(key: key);
   final AppointementController _appointementController =
       Get.put(AppointementController());
+  
 
   @override
   Widget build(BuildContext context) {

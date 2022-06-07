@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reservation_medical_app/Controllers/user_appointments.dart';
+import 'package:reservation_medical_app/Controllers/user_controller.dart';
 import 'package:reservation_medical_app/Pages/home_page.dart';
 import 'package:reservation_medical_app/Pages/server_config.dart';
+import 'package:reservation_medical_app/Pages/signup_personal.dart';
 import 'package:reservation_medical_app/Styles/medi_colors.dart';
 import 'package:reservation_medical_app/medi_components/medi_button.dart';
 import 'package:reservation_medical_app/medi_components/mediappbar.dart';
 
 class LoginForm extends StatelessWidget {
-  final UserController userController = Get.put(UserController());
+  final UserController userController = Get.find<UserController>();
   LoginForm({Key? key}) : super(key: key);
   String email = "";
   String password = "";
@@ -67,7 +68,17 @@ class LoginForm extends StatelessWidget {
                 },
                 text: "Login",
                 color: Colors.green,
-                ctx: context)
+                ctx: context),
+            SizedBox(
+              height: 40,
+            ),
+            MediButton(
+                onPressed: () {
+                  Get.to(() => SignUpPersonal());
+                },
+                text: "Sign Up",
+                color: kcsecondary,
+                ctx: context),
           ],
         ),
       ),
