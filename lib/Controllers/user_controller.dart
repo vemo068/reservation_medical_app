@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservation_medical_app/Pages/home_page.dart';
+import 'package:reservation_medical_app/Pages/welcome_page.dart';
 import 'package:reservation_medical_app/models/RendV.dart';
 import 'package:reservation_medical_app/models/user.dart';
 import 'package:reservation_medical_app/utils/http_service.dart';
@@ -57,5 +58,10 @@ class UserController extends GetxController {
     }
 
     update();
+  }
+
+  void logOut() {
+    currentUser = null;
+    Get.offAll(() => WelcomePage());
   }
 }

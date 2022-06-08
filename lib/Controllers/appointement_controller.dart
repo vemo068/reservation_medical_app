@@ -43,7 +43,8 @@ class AppointementController extends GetxController {
 
   onTabAppointeButton(BuildContext context) {
     if (choosedHour.label == "label") {
-      Get.snackbar("Time not choosed", "Please choose Appointement hour");
+      Get.snackbar("Time not choosed","Please choose Appointement hour",colorText: Colors.red,backgroundColor: Colors.white);
+     
     } else {
       appointementMessage =
           "Appointement on $choosedDate at ${choosedHour.label}";
@@ -82,6 +83,7 @@ class AppointementController extends GetxController {
     await _httpService.postRendV(rendV);
 
     Get.offAll(HomePage());
-    Get.snackbar("Success", "Your Appointement has been Saved");
+    Get.snackbar("Success","Your Appointement has been Saved",colorText: Colors.green,backgroundColor: Colors.white);
+   
   }
 }

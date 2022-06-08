@@ -21,12 +21,25 @@ class HomePage extends StatelessWidget {
   final DoctorController doctorController = Get.put(DoctorController());
   final SpecialityController specialityController =
       Get.put(SpecialityController());
-
+  final UserController userController = Get.find<UserController>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: mediAppBar("Home"),
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: kcmain,
+            title: Text("Home"),
+            actions: [
+              userController.currentUser == null
+                  ? SizedBox()
+                  : IconButton(
+                      onPressed: () {
+                        userController.logOut();
+                      },
+                      icon: Icon(Icons.logout)),
+            ],
+          ),
           drawer: NewD(),
           backgroundColor: kcbackground,
           body: Padding(

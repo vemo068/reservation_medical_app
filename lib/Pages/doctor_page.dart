@@ -30,8 +30,13 @@ class DoctorPage extends StatelessWidget {
             onPressed: () {
               if (userController.currentUser == null) {
                 Get.to(() => LoginForm());
+
                 Get.snackbar(
-                    "Login First", "You should login to make appointments");
+                  "Login First",
+                  "You should login to make appointments",
+                  colorText: Colors.red,
+                  backgroundColor: Colors.white,
+                );
               } else {
                 Get.to(() => AppointPage(
                       dr: doctor,
