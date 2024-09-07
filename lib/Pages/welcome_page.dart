@@ -13,58 +13,60 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-                flex: 4,
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Appointments App",
-                        style: mediHeadlineStyle,
-                      )
-                    ],
-                  ),
-                )),
-            Expanded(
-                flex: 2,
-                child: Container(
-                  child: Column(
-                    //   crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      MediButton(
-                          onPressed: () {
-                            Get.to(() => LoginForm());
-                          },
-                          text: "Login",
-                          color: kcsecondary,
-                          ctx: context),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 6, horizontal: 32),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: kcmain),
-                        ),
-                        child: TextButton(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                  flex: 4,
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Appointments App",
+                          style: mediHeadlineStyle,
+                        )
+                      ],
+                    ),
+                  )),
+              Expanded(
+                  flex: 2,
+                  child: Container(
+                    child: Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MediButton(
                             onPressed: () {
-                              Get.offAll(() => HomePage());
+                              Get.to(() => LoginForm());
                             },
-                            child: Text(
-                              "Later",
-                              style: mediButtonStyle.copyWith(color: kcmain),
-                            )),
-                      ),
-                    ],
-                  ),
-                )),
-          ],
+                            text: "Login",
+                            color: kcsecondary,
+                            ctx: context),
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 6, horizontal: 32),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: kcmain),
+                          ),
+                          child: TextButton(
+                              onPressed: () {
+                                Get.offAll(() => HomePage());
+                              },
+                              child: Text(
+                                "Later",
+                                style: mediButtonStyle.copyWith(color: kcmain),
+                              )),
+                        ),
+                      ],
+                    ),
+                  )),
+            ],
+          ),
         ),
       ),
     );
